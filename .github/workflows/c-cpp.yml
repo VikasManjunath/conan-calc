@@ -79,9 +79,8 @@ jobs:
         mkdir build && cd build
         conan install ..        
         cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
-        build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Debug
-        echo ${{ env.BUILD_WRAPPER_OUT_DIR }}
-        cat ../${{ env.BUILD_WRAPPER_OUT_DIR }}/build-wrapper-dump.json
+        build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} make test
+ 
 #-Dsonar.python.coverage.reportPaths=build/gcovr_report.xml
 
     - name: SonarScan
