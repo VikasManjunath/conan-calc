@@ -92,6 +92,7 @@ jobs:
       
     - name: Coverage
       run: |
+        sudo apt-get install -y gcovr
         cd build && gcovr -r . . --sonarqube -o gcovr_report.xml
     
     
