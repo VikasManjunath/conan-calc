@@ -115,11 +115,11 @@ jobs:
         args: >
           -Dsonar.organization=vikasmanjunath
           -Dsonar.projectKey=VikasManjunath_conan-calc
-          -Dsonar.python.coverage.reportPaths=./build/gcovr_report.xml
+          -Dsonar.python.coverage.reportPaths=build/gcovr_report.xml
           -Dsonar.sources=src/
           -Dsonar.test.exclusions=tests/**
           -Dsonar.tests=test/
-          -Dsonar.cfamily.build-wrapper-output=./build/build_wrapper_output_directory
+          -Dsonar.cfamily.build-wrapper-output=build/build_wrapper_output_directory
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
