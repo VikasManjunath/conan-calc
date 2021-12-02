@@ -78,7 +78,7 @@ jobs:
       run: |
         mkdir build && cd build
         conan install ..        
-        cmake ..
+        cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
         build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Debug
         echo ${{ env.BUILD_WRAPPER_OUT_DIR }}
         cat ../${{ env.BUILD_WRAPPER_OUT_DIR }}/build-wrapper-dump.json
@@ -94,7 +94,6 @@ jobs:
           -Dsonar.sources=src/
           -Dsonar.test.exclusions=test/**
           -Dsonar.tests=test/
-          -Dsonar.log.level=DEBUG
           -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
