@@ -118,7 +118,7 @@ jobs:
           -Dsonar.python.coverage.reportPaths=./build/gcovr_report.xml
           -Dsonar.sources=src/
           -Dsonar.test.exclusions=tests/**
-          -Dsonar.tests=tests/
+          -Dsonar.tests=test/
           -Dsonar.verbose=true
           -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
       env:
