@@ -10,11 +10,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    #env:
+    env:
     # SONAR_SCANNER_VERSION: 4.6.1.2450 # Find the latest version in the "Linux" link on this page:
                                        # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
     # SONAR_SERVER_URL: "https://sonarcloud.io"
-    # BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+     BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
 
     steps:
     - uses: actions/checkout@v2
@@ -95,12 +95,10 @@ jobs:
         
     - name: coverage
       run: |
-        mkdir -p $HOME/reports
         cd build
         cmake -DCMAKE_BUILD_TYPE=PROFILE ..
         cmake --build .
-        gcovr -r ../src . --sonarqube -o $HOME/reports/gcovr_report.xml
-        ls -ltr $HOME/reports
+        gcovr -r ../src . --sonarqube -o gcovr_report.xml
         
     
 #    - name: Run sonar-scanner
@@ -112,6 +110,17 @@ jobs:
 
     - name: SonarScan
       uses: sonarsource/sonarcloud-github-action@master
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.organization=vikasmanjunath
+          -Dsonar.projectKey=VikasManjunath_conan-calc
+          -Dsonar.python.coverage.reportPaths=./build/gcovr_report.xml
+          -Dsonar.sources=src/
+          -Dsonar.test.exclusions=tests/**
+          -Dsonar.tests=tests/
+          -Dsonar.verbose=true
+          -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
