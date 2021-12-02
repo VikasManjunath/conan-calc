@@ -64,11 +64,16 @@ jobs:
     - name: Download and set up build-wrapper
       env:
         BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+    #  run: |
+    #    mkdir -p $HOME/.sonar
+     #   curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+     #   unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+     #   echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
       run: |
-        mkdir -p $HOME/.sonar
-        curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
-        unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
-        echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+        mkdir -p $HOME/tools && cd $HOME/tools
+        wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip build-wrapper-linux-x86.zip
+        echo "$HOME/tools/build-wrapper-linux-x86" >> $GITHUB_PATH
     - name: Run build-wrapper
       run: |
         mkdir build && cd build
