@@ -74,10 +74,10 @@ jobs:
         conan install ..
         pwd && ls -ltr
         cmake ..
-        build-wrapper-linux-x86-64 --out-dir /github/workspace/${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Release
-        echo /github/workspace/${{ env.BUILD_WRAPPER_OUT_DIR }}
+        build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Release
+        echo ${{ env.BUILD_WRAPPER_OUT_DIR }}
         ls -ltr /github/workspace/
-      
+        ls -ltr /home/runner/work/conan-calc/conan-calc/build_wrapper_output_directory
        
     - name: Test
       working-directory: build
