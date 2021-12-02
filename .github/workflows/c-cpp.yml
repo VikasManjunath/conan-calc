@@ -81,7 +81,7 @@ jobs:
         cmake ..
         build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Release
         echo ${{ env.BUILD_WRAPPER_OUT_DIR }}
-        ls -ltr ../${{ env.BUILD_WRAPPER_OUT_DIR }}
+        cat ../${{ env.BUILD_WRAPPER_OUT_DIR }}/build-wrapper-dump.json
 #-Dsonar.python.coverage.reportPaths=build/gcovr_report.xml
 
     - name: SonarScan
