@@ -75,7 +75,7 @@ jobs:
         build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Release
         echo ${{ env.BUILD_WRAPPER_OUT_DIR }}
         ls -ltr /home/runner/work/conan-calc
-        ls -ltr /home/runner/work/conan-calc/conan-calc/build
+        ls -ltr /home/runner/work/conan-calc/conan-calc/build/build_wrapper_output_directory
     - name: Run sonar-scanner
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
