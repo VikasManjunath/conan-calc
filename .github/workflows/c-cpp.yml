@@ -100,6 +100,7 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=PROFILE ..
         cmake --build .
         gcovr -r ../src . --sonarqube -o gcovr_report.xml
+        cat ../${{ env.BUILD_WRAPPER_OUT_DIR }}/build-wrapper-dump.json
         
     
 #    - name: Run sonar-scanner
