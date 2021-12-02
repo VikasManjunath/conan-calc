@@ -82,22 +82,7 @@ jobs:
         build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} make test
  
 #-Dsonar.python.coverage.reportPaths=build/gcovr_report.xml
-
-    - name: SonarScan
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        projectBaseDir: .
-        args: >
-          -Dsonar.organization=vikasmanjunath
-          -Dsonar.projectKey=VikasManjunath_conan-calc
-          -Dsonar.sources=src/
-          -Dsonar.test.exclusions=test/**
-          -Dsonar.tests=test/
-          -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       
+      
     - name: Test
       working-directory: build
       # Execute tests defined by the CMake configuration.  
@@ -114,8 +99,24 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=PROFILE ..
         cmake --build .
         gcovr -r ../src . --sonarqube -o gcovr_report.xml
+        build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} make test
         cat ../${{ env.BUILD_WRAPPER_OUT_DIR }}/build-wrapper-dump.json
-        
+
+
+    - name: SonarScan
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.organization=vikasmanjunath
+          -Dsonar.projectKey=VikasManjunath_conan-calc
+          -Dsonar.sources=src/
+          -Dsonar.test.exclusions=test/**
+          -Dsonar.tests=test/
+          -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
 #    - name: Run sonar-scanner
 #      env:
