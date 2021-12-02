@@ -119,7 +119,7 @@ jobs:
           -Dsonar.sources=src/
           -Dsonar.test.exclusions=tests/**
           -Dsonar.tests=test/
-          -Dsonar.cfamily.build-wrapper-output=build/build_wrapper_output_directory
+          -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
