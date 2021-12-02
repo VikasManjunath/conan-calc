@@ -77,8 +77,7 @@ jobs:
     - name: Run build-wrapper
       run: |
         mkdir build && cd build
-        conan install ..
-        pwd && ls -ltr
+        conan install ..        
         cmake ..
         build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Release
         echo ${{ env.BUILD_WRAPPER_OUT_DIR }}
@@ -88,7 +87,7 @@ jobs:
       working-directory: build
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C DEBUG
+      run: ctest
       
     - name: gcov install
       run: |
@@ -96,10 +95,12 @@ jobs:
         
     - name: coverage
       run: |
+        mkdir -p $HOME/reports
         cd build
         cmake -DCMAKE_BUILD_TYPE=PROFILE ..
         cmake --build .
-        gcovr -r ../src . --sonarqube -o /github/workspace/gcovr_report.xml
+        gcovr -r ../src . --sonarqube -o $HOME/reports/gcovr_report.xml
+        ls -ltr $HOME/reports
         
     
 #    - name: Run sonar-scanner
