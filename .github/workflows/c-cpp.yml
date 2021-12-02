@@ -1,0 +1,46 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install conan && conan package tools
+      run: |
+          python3 -m pip install --upgrade pip
+          pip3 install conan
+          pip3 install conan_package_tools        
+    - name: configure remote add
+      run: conan remote add remoterepo https://vickyconancentral.jfrog.io/artifactory/api/conan/calculator-conan
+    - name: conan remote user confi
+      run: conan user -p ${{ secrets.CONAN_KEY }} -r remoterepo vicky31dec86@gmail.com
+      env: 
+        CONAN_REVISIONS_ENABLED: 1
+    - name: conan project install
+      run: |
+          mkdir build && cd build
+          conan install ..
+    - name: configure and build
+      run: |
+        cd build && cmake ../src
+        cmake --build .
+    - name: package clean up
+      run: |
+        conan remove "calculator*" --builds --force
+        conan remove "calculator*" --packages --force
+        conan remove "calculator*" --src --force
+        conan remove "calculator*" --force 
+    - name: create package
+      run: conan create . master/release
+    - name: upload package
+      run: conan upload "calculator/0.1@master/release" -r=remoterepo --force
+      env: 
+        CONAN_REVISIONS_ENABLED: 1
