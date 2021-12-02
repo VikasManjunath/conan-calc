@@ -113,6 +113,9 @@ jobs:
           -Dsonar.test.exclusions=test/**
           -Dsonar.tests=test/
           -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
+          -Dsonar.cfamily.threads=1
+          -Dsonar.cfamily.cache.enabled=false
+
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
