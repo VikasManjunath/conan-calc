@@ -78,8 +78,8 @@ jobs:
       run: |
         mkdir build && cd build
         conan install ..        
-        cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
-        build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Release
+        cmake .. -DCMAKE_BUILD_TYPE=Debug 
+        build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . 
  
 #-Dsonar.python.coverage.reportPaths=build/gcovr_report.xml
       
@@ -98,8 +98,7 @@ jobs:
         cd build
         cmake -DCMAKE_BUILD_TYPE=PROFILE ..
         cmake --build .
-        gcovr -r ../src . --sonarqube -o gcovr_report.xml
-        build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} make test
+        gcovr -r ../src . --sonarqube -o gcovr_report.xml        
         cat ../${{ env.BUILD_WRAPPER_OUT_DIR }}/build-wrapper-dump.json
 
 
