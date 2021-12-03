@@ -8,4 +8,4 @@ add_library(calc src/calculator.cpp)
 
 add_subdirectory(test)
 add_subdirectory(src)
-
+include_directories(src)
