@@ -73,7 +73,9 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=PROFILE ..
         cmake --build .
         ctest
-        gcovr -r ../src . --sonarqube -o gcovr_report.xml        
+        gcovr -r ../src . --sonarqube -o gcovr_report.xml
+        pwd
+        ls -ltr
    
     - name: Run sonar-scanner
       env:
