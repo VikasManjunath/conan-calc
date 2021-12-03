@@ -73,15 +73,15 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=PROFILE ..
         cmake --build .
         ctest
-        gcovr -r ../src . --sonarqube -o ../${{ env.BUILD_WRAPPER_OUT_DIR }}/covreport.xml
-        cp -r ./CMakeFiles/calc.dir/src reports
+        gcovr -r ../src .
+        gcovr -r ../src . --sonarqube -o reports/covreport.xml
+        cp -r ./CMakeFiles/calc.dir/src reports/.
    
     - name: Run sonar-scanner
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        cat ${{ env.BUILD_WRAPPER_OUT_DIR }}/covreport.xml
         sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
 
   
