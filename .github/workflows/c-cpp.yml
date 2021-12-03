@@ -78,9 +78,9 @@ jobs:
       run: |
         mkdir build && cd build
         conan install ..        
-        cmake .. -DCMAKE_BUILD_TYPE=Debug 
-        cd ..
-        build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory make clean all
+        cmake .. 
+        build-wrapper-linux-x86-64 --out-dir ../build_wrapper_output_directory make clean all
+        cat ../build_wrapper_output_directory/build-wrapper.log
  
 #-Dsonar.python.coverage.reportPaths=build/gcovr_report.xml
       
