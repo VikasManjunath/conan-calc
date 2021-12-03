@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <calculator.h>
+#include "../src/calculator.h"
 
 // Demonstrate some basic assertions.
 TEST(HelloTest, BasicAssertions) {

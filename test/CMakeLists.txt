@@ -20,7 +20,7 @@ add_executable(
 target_link_libraries(
   calc_test
   gtest_main
-  calc
+  calculator
 )
 
 include(GoogleTest)
@@ -28,5 +28,3 @@ gtest_discover_tests(calc_test)
 
 
 add_test(hello_test ${EXECUTABLE_OUTPUT_PATH}/calc_test)
-add_definitions(-fprofile-arcs -ftest-coverage)
-target_link_libraries(calc_test -fprofile-arcs)
