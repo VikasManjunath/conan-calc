@@ -5,7 +5,7 @@ project(calculator VERSION 0.1)
 
 enable_testing()
 add_library(calc src/calculator.cpp)
-
+include_directories(src)
 add_subdirectory(test)
 add_subdirectory(src)
-include_directories(src)
+
