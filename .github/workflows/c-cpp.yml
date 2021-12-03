@@ -54,7 +54,6 @@ jobs:
       run: |
         mkdir build && cd build
         conan install ..
-        pwd && ls -ltr
         cmake ..
         build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build . --config Release
  
@@ -74,7 +73,7 @@ jobs:
         cmake --build .
         ctest
         mkdir reports && cd reports
-        gcov ../src/CMakeFiles/calculator.dir/*.gcno        
+        gcov ../src/CMakeFiles/calculator.dir/*        
    
     - name: Run sonar-scanner
       env:
