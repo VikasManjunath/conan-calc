@@ -74,7 +74,7 @@ jobs:
         cmake --build .
         ctest
         mkdir reports && cd reports
-        gcovr -r ${{env.SOURCE_DIR}} .. --sonarqube -x -o coverage.xml
+        gcovr -r ${{env.SOURCE_DIR}} .. --sonarqube -o coverage.xml
 #gcov ../src/CMakeFiles/calculator.dir/*        
    
     - name: Run sonar-scanner
