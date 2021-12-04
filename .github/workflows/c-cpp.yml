@@ -73,7 +73,8 @@ jobs:
         cmake --build .
         ctest
         mkdir reports && cd reports
-        gcov ../src/CMakeFiles/calculator.dir/*        
+        gcovr -r ../../src .. --sonarqube -o coverage.xml
+#gcov ../src/CMakeFiles/calculator.dir/*        
    
     - name: Run sonar-scanner
       env:
