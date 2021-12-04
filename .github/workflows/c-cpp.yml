@@ -15,6 +15,7 @@ jobs:
                                        # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
      SONAR_SERVER_URL: "https://sonarcloud.io"
      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+     SOURCE_DIR: /home/runner/work/conan-calc
 
     steps:
     - uses: actions/checkout@v2
@@ -73,7 +74,7 @@ jobs:
         cmake --build .
         ctest
         mkdir reports && cd reports
-        gcovr -r ../../src .. --sonarqube -o coverage.xml
+        gcovr -r ${{env.SOURCE_DIR}} .. --sonarqube -o coverage.xml
 #gcov ../src/CMakeFiles/calculator.dir/*        
    
     - name: Run sonar-scanner
