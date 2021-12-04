@@ -62,9 +62,9 @@ jobs:
       working-directory: build
       run: ctest
       
- #   - name: gcov install
- #     run: |
- #       sudo apt-get install -y gcovr
+    - name: gcovr install
+      run: |
+        sudo apt-get install -y gcovr
         
     - name: coverage
       run: |
