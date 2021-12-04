@@ -63,9 +63,9 @@ jobs:
       working-directory: build
       run: ctest
       
-    - name: gcovr install
-      run: |
-        sudo apt-get install -y gcovr
+#    - name: gcovr install
+#      run: |
+#        sudo apt-get install -y gcovr
         
     - name: coverage
       run: |
@@ -74,8 +74,7 @@ jobs:
         cmake --build .
         ctest
         mkdir reports && cd reports
-        gcovr -r ${{env.SOURCE_DIR}} .. --sonarqube -o coverage.xml
-#gcov ../src/CMakeFiles/calculator.dir/*        
+        gcov ../src/CMakeFiles/calculator.dir/*        
    
     - name: Run sonar-scanner
       env:
