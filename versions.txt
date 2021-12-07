@@ -1,0 +1,5 @@
+# energon version
+SELF_VERSION=0.1.0
+
+#dependent package versions
+BOOST_VERSION=boost/1.77.0@
