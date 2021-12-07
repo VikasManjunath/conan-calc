@@ -90,7 +90,7 @@ jobs:
         conan remove "calculator*" --src --force
         conan remove "calculator*" --force 
     - name: create package
-      run: pthon3 package.py
+      run: python3 package.py
       env:
         CONAN_PASSWORD: ${{secrets.CONAN_KEY}}
         CONAN_LOGIN_USERNAME: "vicky31dec86@gmail.com"
