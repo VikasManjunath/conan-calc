@@ -1,9 +1,9 @@
 from conans import ConanFile, CMake
-
+import re, os
 
 class CalculatorConan(ConanFile):
     name = "calculator"
-    version = "0.1"
+    version = ""
     license = "<Put the package license here>"
     author = "<Put your name here> <And your email here>"
     url = "<Package recipe repository url here, for issues about the package>"
@@ -14,6 +14,27 @@ class CalculatorConan(ConanFile):
     default_options = {"shared": False, "fPIC": True}
     generators = "cmake"
     exports_sources = "src/*"
+    exports="versions.txt"
+    reference = name +"/" 
+    versions = {}
+
+    def __init__(self, output, runner, display_name="", user=None, channel=None):
+        self.load_versions()
+        super().__init__(output, runner, display_name=display_name, user=user, channel=channel)
+
+    def load_versions(self):
+        if(not self.versions): #if empty
+            version_file = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "versions.txt"), 'r')
+            for line in version_file.readlines():
+                if line.isspace() or line[0]=='#':
+                    continue
+                kv = line.split("=")
+                self.versions[kv[0].strip()]=kv[1].strip()
+
+    def set_version(self):    
+        self.version = str(self.versions.get("SELF_VERSION"))
+        self.reference=self.reference+self.version
+
 
     def config_options(self):
         if self.settings.os == "Windows":

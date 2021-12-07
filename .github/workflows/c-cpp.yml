@@ -82,9 +82,6 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
-
-  
-
         
     - name: package clean up
       run: |
@@ -93,8 +90,12 @@ jobs:
         conan remove "calculator*" --src --force
         conan remove "calculator*" --force 
     - name: create package
-      run: conan create . master/release
-    - name: upload package
-      run: conan upload "calculator/0.1@master/release" -r=remoterepo --force
-      env: 
-        CONAN_REVISIONS_ENABLED: 1
+      run: pthon3 package.py
+      env:
+        CONAN_PASSWORD: ${{secrets.CONAN_KEY}}
+        CONAN_LOGIN_USERNAME: "vicky31dec86@gmail.com"
+        CONAN_CHANNEL: "stable"
+        CONAN_UPLOAD: "https://vickyconancentral.jfrog.io/artifactory/api/conan/calculator-conan"
+        CONAN_STABLE_BRANCH_PATTERN: "release/*"
+        CONAN_APPLE_CLANG_VERSIONS: "12.0"
+        CONAN_PIP_COMMAND: pip3
